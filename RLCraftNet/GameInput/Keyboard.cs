@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Keyboard
+namespace GameInput
 {
     public class Keyboard
     {

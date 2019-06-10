@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Keyboard;
+using GameInput;
 
 namespace Sandbox
 {
@@ -14,27 +14,27 @@ namespace Sandbox
         {
             Thread.Sleep(3000);
 
-            Keyboard.Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.H);
-            Thread.Sleep(1000);
-            Keyboard.Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.E);
-            Thread.Sleep(1000);
-            Keyboard.Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.L);
-            Thread.Sleep(1000);
-            Keyboard.Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.L);
-            Thread.Sleep(1000);
-            Keyboard.Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.O);
-            Thread.Sleep(1000);
-            Keyboard.Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.Space);
-            Thread.Sleep(1000);
-            Keyboard.Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.W);
-            Thread.Sleep(1000);
-            Keyboard.Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.O);
-            Thread.Sleep(1000);
-            Keyboard.Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.R);
-            Thread.Sleep(1000);
-            Keyboard.Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.L);
-            Thread.Sleep(1000);
-            Keyboard.Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.D);
+            Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.H);
+            Thread.Sleep(200);
+            Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.E);
+            Thread.Sleep(200);
+            Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.L);
+            Thread.Sleep(200);
+            Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.L);
+            Thread.Sleep(200);
+            Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.O);
+            Thread.Sleep(200);
+            Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.Space);
+            Thread.Sleep(200);
+            Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.W);
+            Thread.Sleep(200);
+            Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.O);
+            Thread.Sleep(200);
+            Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.R);
+            Thread.Sleep(200);
+            Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.L);
+            Thread.Sleep(200);
+            Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.D);
 
             Console.ReadKey();
         }

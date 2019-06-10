@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Sandbox\Sandbox.csproj", "{75374914-2724-4154-B589-1FEC50D95CCE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keyboard", "Keyboard\Keyboard.csproj", "{5F7D101C-A49C-41AC-9284-8CCA36305854}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameInput", "GameInput\GameInput.csproj", "{94193F6B-055D-46B9-88D8-810E3CDB1BE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{75374914-2724-4154-B589-1FEC50D95CCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75374914-2724-4154-B589-1FEC50D95CCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75374914-2724-4154-B589-1FEC50D95CCE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5F7D101C-A49C-41AC-9284-8CCA36305854}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F7D101C-A49C-41AC-9284-8CCA36305854}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F7D101C-A49C-41AC-9284-8CCA36305854}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F7D101C-A49C-41AC-9284-8CCA36305854}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94193F6B-055D-46B9-88D8-810E3CDB1BE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94193F6B-055D-46B9-88D8-810E3CDB1BE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94193F6B-055D-46B9-88D8-810E3CDB1BE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94193F6B-055D-46B9-88D8-810E3CDB1BE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

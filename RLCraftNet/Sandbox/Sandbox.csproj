@@ -52,9 +52,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Keyboard\Keyboard.csproj">
-      <Project>{5f7d101c-a49c-41ac-9284-8cca36305854}</Project>
-      <Name>Keyboard</Name>
+    <ProjectReference Include="..\GameInput\GameInput.csproj">
+      <Project>{94193f6b-055d-46b9-88d8-810e3cdb1be3}</Project>
+      <Name>GameInput</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
