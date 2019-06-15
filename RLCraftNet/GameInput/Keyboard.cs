@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace GameInput
 {
@@ -34,23 +35,24 @@ namespace GameInput
             return SendInput(2, pInputs, Marshal.SizeOf(structure));
         }
 
-        public static uint Z()
+        public static void SendKeyDownAsInput(System.Windows.Forms.Keys key)
         {
-            INPUT structure = new INPUT();
-            structure.type = (int)InputType.INPUT_KEYBOARD;
-            structure.ki.wVk = VkKeyScan((char)System.Windows.Forms.Keys.Z);
-            structure.ki.dwFlags = (int)KEYEVENTF.KEYDOWN;
-            structure.ki.dwExtraInfo = GetMessageExtraInfo();
+            INPUT input = new INPUT();
+            input.type = (int)InputType.INPUT_KEYBOARD;
+            input.ki.wVk = (short)key;
+            input.ki.dwFlags = (int)KEYEVENTF.KEYDOWN;
+            input.ki.dwExtraInfo = GetMessageExtraInfo();
+            SendInput(1, new INPUT[] { input }, Marshal.SizeOf(input));
+        }
 
-            INPUT input2 = new INPUT();
-            structure.type = (int)InputType.INPUT_KEYBOARD;
-            structure.ki.wVk = VkKeyScan((char)System.Windows.Forms.Keys.Z);
-            input2.mi.dwFlags = (int)KEYEVENTF.KEYUP;
-            input2.ki.dwExtraInfo = GetMessageExtraInfo();
-
-            INPUT[] pInputs = new INPUT[] { structure, input2 };
-
-            return SendInput(2, pInputs, Marshal.SizeOf(structure));
+        public static void SendKeyUpAsInput(System.Windows.Forms.Keys key)
+        {
+            INPUT input = new INPUT();
+            input.type = (int)InputType.INPUT_KEYBOARD;
+            input.ki.wVk = (short)key;
+            input.ki.dwFlags = (int)KEYEVENTF.KEYUP;
+            input.ki.dwExtraInfo = GetMessageExtraInfo();
+            SendInput(1, new INPUT[] { input }, Marshal.SizeOf(input));
         }
 
         public static void SendKeyAsInput(System.Windows.Forms.Keys key)
@@ -74,22 +76,21 @@ namespace GameInput
 
         public static void SendKeyAsInput(System.Windows.Forms.Keys key, int HoldTime)
         {
-            INPUT INPUT1 = new INPUT();
-            INPUT1.type = (int)InputType.INPUT_KEYBOARD;
-            INPUT1.ki.wVk = (short)key;
-            INPUT1.ki.dwFlags = (int)KEYEVENTF.KEYDOWN;
-            INPUT1.ki.dwExtraInfo = GetMessageExtraInfo();
-            SendInput(1, new INPUT[] { INPUT1 }, Marshal.SizeOf(INPUT1));
+            INPUT input1 = new INPUT();
+            input1.type = (int)InputType.INPUT_KEYBOARD;
+            input1.ki.wVk = (short)key;
+            input1.ki.dwFlags = (int)KEYEVENTF.KEYDOWN;
+            input1.ki.dwExtraInfo = GetMessageExtraInfo();
+            SendInput(1, new INPUT[] { input1 }, Marshal.SizeOf(input1));
 
-            WaitForSingleObject((IntPtr)0xACEFDB, (uint)HoldTime);
+            Thread.Sleep(HoldTime);
 
-            INPUT INPUT2 = new INPUT();
-            INPUT2.type = (int)InputType.INPUT_KEYBOARD;
-            INPUT2.ki.wVk = (short)key;
-            INPUT2.mi.dwFlags = (int)KEYEVENTF.KEYUP;
-            INPUT2.ki.dwExtraInfo = GetMessageExtraInfo();
-            SendInput(1, new INPUT[] { INPUT2 }, Marshal.SizeOf(INPUT2));
-
+            INPUT input2 = new INPUT();
+            input2.type = (int)InputType.INPUT_KEYBOARD;
+            input2.ki.wVk = (short)key;
+            input2.ki.dwFlags = (int)KEYEVENTF.KEYUP;
+            input2.ki.dwExtraInfo = GetMessageExtraInfo();
+            SendInput(1, new INPUT[] { input2 }, Marshal.SizeOf(input2));
         }
 
         [StructLayout(LayoutKind.Explicit)]
