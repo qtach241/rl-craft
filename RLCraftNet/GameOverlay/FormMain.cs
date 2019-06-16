@@ -12,19 +12,33 @@ namespace GameOverlay
 {
     public partial class FormMain : Form
     {
+        FormOverlay frm = new FormOverlay();
+
         public FormMain()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void FormMain_Load(object sender, EventArgs e)
         {
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            frm.Show();
+        }
 
+        private void checkBoxShowOverlay_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBoxShowOverlay.Checked == true)
+            {
+                frm.Show();
+            }
+            else
+            {
+                frm.Hide();
+            }
         }
     }
 }

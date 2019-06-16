@@ -38,6 +38,7 @@
             this.Name = "FormOverlay";
             this.Text = "FormOverlay";
             this.Load += new System.EventHandler(this.FormOverlay_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormOverlay_Paint);
             this.ResumeLayout(false);
 
         }
