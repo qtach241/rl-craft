@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using GameOverlay.Models;
 
 namespace GameOverlay
 {
@@ -31,13 +32,16 @@ namespace GameOverlay
         #endregion
 
         public const string WINDOW_NAME = "World of Warcraft";
-        IntPtr handle = FindWindow(null, WINDOW_NAME);
+        //public const string WINDOW_NAME = "Sourcetree";
+        IntPtr hGameWindow = FindWindow(null, WINDOW_NAME);
         RECT rect;
 
         Graphics g;
         Pen redPen = new Pen(Color.Red);
         Pen bluPen = new Pen(Color.Blue);
         Pen grnPen = new Pen(Color.Green);
+
+        Overlay overlay;
 
         private struct RECT
         {
@@ -61,10 +65,12 @@ namespace GameOverlay
             int initialStyle = GetWindowLong(this.Handle, -20);
             SetWindowLong(this.Handle, -20, initialStyle | 0x80000 | 0x20);
 
-            GetWindowRect(handle, out rect);
+            GetWindowRect(hGameWindow, out rect);
             this.Size = new Size(rect.right - rect.left, rect.bottom - rect.top);
             this.Top = rect.top;
             this.Left = rect.left;
+
+            overlay = new Overlay(rect.top, rect.left, (rect.right - rect.left), (rect.bottom - rect.top));
         }
 
         private void FormOverlay_Paint(object sender, PaintEventArgs e)
@@ -72,7 +78,11 @@ namespace GameOverlay
             g = e.Graphics;
             g.DrawRectangle(redPen, 200, 200, 300, 300);
 
-            e.Graphics.DrawRectangle(grnPen, 400, 400, 200, 200);
+            e.Graphics.DrawRectangle(grnPen, overlay.SelfFrame.GetRect());
+            e.Graphics.DrawRectangle(grnPen, overlay.TankFrame.GetRect());
+            e.Graphics.DrawRectangle(grnPen, overlay.DpsFrames[0].GetRect());
+            e.Graphics.DrawRectangle(grnPen, overlay.DpsFrames[1].GetRect());
+            e.Graphics.DrawRectangle(grnPen, overlay.DpsFrames[2].GetRect());
         }
     }
 }
