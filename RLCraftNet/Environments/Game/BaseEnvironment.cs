@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Environments.Models
+namespace Environments.Game
 {
     public abstract class BaseEnvironment : IEnvironment
     {

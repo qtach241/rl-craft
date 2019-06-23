@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Environments.Models
+namespace Environments.Game
 {
     public class WoW : BaseEnvironment
     {

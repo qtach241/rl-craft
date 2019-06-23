@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using GameOverlay.Models;
 using Environments.Models;
+using Environments.Game;
 
 namespace GameOverlay
 {
