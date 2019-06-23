@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 
 namespace Environments.Models
 {
@@ -9,7 +8,15 @@ namespace Environments.Models
 
         public WoW() : base(WINDOW_NAME)
         {
+            if (WindowResolution == Resolution.None)
+            {
+                throw new Exception();
+            }
 
+            if (WindowResolution == Resolution._2560_x_1440)
+            {
+
+            }
         }
 
         public override void Observe()
