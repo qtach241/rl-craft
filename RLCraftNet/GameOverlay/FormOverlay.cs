@@ -84,5 +84,14 @@ namespace GameOverlay
             e.Graphics.DrawRectangle(grnPen, overlay.DpsFrames[1].GetRect());
             e.Graphics.DrawRectangle(grnPen, overlay.DpsFrames[2].GetRect());
         }
+
+        private void ActionTimer_Tick(object sender, EventArgs e)
+        {
+            // Observe the game state
+
+            // Act on the game state
+
+            // Obtain the reward from the action
+        }
     }
 }

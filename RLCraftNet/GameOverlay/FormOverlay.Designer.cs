@@ -28,7 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.ActionTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
+            // 
+            // ActionTimer
+            // 
+            this.ActionTimer.Interval = 250;
+            this.ActionTimer.Tick += new System.EventHandler(this.ActionTimer_Tick);
             // 
             // FormOverlay
             // 
@@ -44,5 +51,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer ActionTimer;
     }
 }
