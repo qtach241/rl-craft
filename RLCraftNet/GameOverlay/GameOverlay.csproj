@@ -91,6 +91,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Environments\Environments.csproj">
+      <Project>{aee36d94-6bcb-4aae-9377-1037f525970a}</Project>
+      <Name>Environments</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
