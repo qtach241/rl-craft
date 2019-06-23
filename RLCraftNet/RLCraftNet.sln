@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameInput", "GameInput\Game
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOverlay", "GameOverlay\GameOverlay.csproj", "{5A133366-4C86-41E1-8B24-F8031A7C363D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Environments", "Environments\Environments.csproj", "{AEE36D94-6BCB-4AAE-9377-1037F525970A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{5A133366-4C86-41E1-8B24-F8031A7C363D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A133366-4C86-41E1-8B24-F8031A7C363D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A133366-4C86-41E1-8B24-F8031A7C363D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEE36D94-6BCB-4AAE-9377-1037F525970A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEE36D94-6BCB-4AAE-9377-1037F525970A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEE36D94-6BCB-4AAE-9377-1037F525970A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEE36D94-6BCB-4AAE-9377-1037F525970A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
