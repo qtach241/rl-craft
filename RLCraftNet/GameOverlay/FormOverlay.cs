@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using GameOverlay.Models;
+using Environments.Models;
 
 namespace GameOverlay
 {
@@ -22,19 +17,7 @@ namespace GameOverlay
         [DllImport("user32.dll", SetLastError = true)]
         static extern int GetWindowLong(IntPtr hWnd, int nIndex);
 
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
-
         #endregion
-
-        public const string WINDOW_NAME = "World of Warcraft";
-        //public const string WINDOW_NAME = "Sourcetree";
-        IntPtr hGameWindow = FindWindow(null, WINDOW_NAME);
-        RECT rect;
 
         Graphics g;
         Pen redPen = new Pen(Color.Red);
@@ -43,11 +26,6 @@ namespace GameOverlay
 
         Overlay overlay;
 
-        private struct RECT
-        {
-            public int left, top, right, bottom;
-        }
-
         public FormOverlay()
         {
             InitializeComponent();
@@ -55,6 +33,10 @@ namespace GameOverlay
 
         private void FormOverlay_Load(object sender, EventArgs e)
         {
+            // Game API we will interacting with.
+            WoW WoW = new WoW();
+
+            // Setup the overlay to place over the game window.
             this.BackColor = Color.Wheat;
             this.TransparencyKey = Color.Wheat;
             this.TopMost = true;
@@ -65,12 +47,12 @@ namespace GameOverlay
             int initialStyle = GetWindowLong(this.Handle, -20);
             SetWindowLong(this.Handle, -20, initialStyle | 0x80000 | 0x20);
 
-            GetWindowRect(hGameWindow, out rect);
-            this.Size = new Size(rect.right - rect.left, rect.bottom - rect.top);
-            this.Top = rect.top;
-            this.Left = rect.left;
+            // Match the overlay window with the game window.
+            this.Size = new Size(WoW.Window.Right - WoW.Window.Left, WoW.Window.Bottom - WoW.Window.Top);
+            this.Top = WoW.Window.Top;
+            this.Left = WoW.Window.Left;
 
-            overlay = new Overlay(rect.top, rect.left, (rect.right - rect.left), (rect.bottom - rect.top));
+            overlay = new Overlay(WoW.Window.Top, WoW.Window.Left, (WoW.Window.Right - WoW.Window.Left), (WoW.Window.Bottom - WoW.Window.Top));
         }
 
         private void FormOverlay_Paint(object sender, PaintEventArgs e)
