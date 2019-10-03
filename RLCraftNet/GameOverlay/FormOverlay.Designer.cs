@@ -30,12 +30,22 @@
         {
             this.components = new System.ComponentModel.Container();
             this.ActionTimer = new System.Windows.Forms.Timer(this.components);
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // ActionTimer
             // 
             this.ActionTimer.Interval = 250;
             this.ActionTimer.Tick += new System.EventHandler(this.ActionTimer_Tick);
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            // 
+            // backgroundWorker2
+            // 
+            this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
             // 
             // FormOverlay
             // 
@@ -53,5 +63,7 @@
         #endregion
 
         private System.Windows.Forms.Timer ActionTimer;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker2;
     }
 }

@@ -10,7 +10,7 @@ namespace Environments.Game
         {
             if (WindowResolution == Resolution.None)
             {
-                throw new Exception();
+                //throw new Exception();
             }
 
             if (WindowResolution == Resolution._2560_x_1440)

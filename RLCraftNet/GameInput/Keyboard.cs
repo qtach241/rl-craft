@@ -20,7 +20,21 @@ namespace GameInput
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern IntPtr WaitForSingleObject(IntPtr hHandle, uint dwMilliseconds);
 
+        [DllImport("user32.dll")]
+        static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
+
         #endregion
+
+        public static void MouseMoveTo(int x, int y)
+        {
+            mouse_event((int)MOUSEEVENTF.ABSOLUTE | (int)MOUSEEVENTF.MOVE, x, y, 0, 0);
+        }
+
+        public static void MouseLeftClick(int x, int y)
+        {
+            mouse_event((int)MOUSEEVENTF.LEFTDOWN | (int)MOUSEEVENTF.ABSOLUTE | (int)MOUSEEVENTF.MOVE, x, y, 0, 0);
+            mouse_event((int)MOUSEEVENTF.LEFTUP | (int)MOUSEEVENTF.ABSOLUTE | (int)MOUSEEVENTF.MOVE, x, y, 0, 0);
+        }
 
         public static uint Click()
         {
