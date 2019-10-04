@@ -50,6 +50,9 @@ namespace GameOverlay
         private const int SCREEN_WIDTH_PX = 2560;
         private const int SCREEN_HEIGHT_PX = 1440;
 
+        private int castsUntilBreak;
+        Random rng = new Random();
+
         public FormOverlay()
         {
             InitializeComponent();
@@ -88,6 +91,8 @@ namespace GameOverlay
             this.Left = 0;
 
             //overlay = new Overlay(WoW.Window.Top, WoW.Window.Left, (WoW.Window.Right - WoW.Window.Left), (WoW.Window.Bottom - WoW.Window.Top));
+
+            castsUntilBreak = rng.Next(100, 200);
 
             backgroundWorker1.RunWorkerAsync(3000);
         }
@@ -161,7 +166,7 @@ namespace GameOverlay
             }
 
             // Kick off backgroundWorker2.
-            backgroundWorker2.RunWorkerAsync(1000);
+            backgroundWorker2.RunWorkerAsync();
         }
 
         /// <summary>
@@ -200,8 +205,35 @@ namespace GameOverlay
             drawBox.width = 0;
             this.Refresh();
 
-            // Kick off backgroundWorker 1 and repeat.
-            backgroundWorker1.RunWorkerAsync(3000);
+            castsUntilBreak--;
+            Debug.WriteLine($"Casts remaining until break: {castsUntilBreak}");
+
+            if(castsUntilBreak == 0)
+            {
+                int breakTime = rng.Next(1, 15); // 1 to 15 minutes.
+                Debug.WriteLine($"Taking a break for {breakTime} minutes...");
+
+                for (int i = 0; i < breakTime; i++)
+                {
+                    Thread.Sleep(60000);
+                    Debug.WriteLine($"Minutes passed while on break: {i}");
+                }
+                //Thread.Sleep(breakTime * 60 * 1000);
+
+                castsUntilBreak = rng.Next(10, 200);
+                Debug.WriteLine($"Number of casts until next break: {castsUntilBreak}");
+
+                // Jump to get rid of AFK status
+                Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.Space);
+
+                // Kick off backgroundWorker 1 and repeat.
+                backgroundWorker1.RunWorkerAsync(3000);
+            }
+            else
+            {
+                // Kick off backgroundWorker 1 and repeat.
+                backgroundWorker1.RunWorkerAsync(rng.Next(3000, 10000));
+            }
         }
 
         /// <summary>
@@ -310,6 +342,7 @@ namespace GameOverlay
         private LureTag FindLure(int n, BackgroundWorker worker, DoWorkEventArgs e)
         {
             // Allow delay for us to switch to game window.
+            Debug.WriteLine($"Casting a new line in: {n} ms");
             Thread.Sleep(n);
 
             // Press "C" to cast line.
