@@ -45,6 +45,11 @@ namespace GameOverlay
 
         BoundingBox drawBox = new BoundingBox();
 
+        Stopwatch sw = new Stopwatch();
+
+        private const int SCREEN_WIDTH_PX = 2560;
+        private const int SCREEN_HEIGHT_PX = 1440;
+
         public FormOverlay()
         {
             InitializeComponent();
@@ -78,7 +83,7 @@ namespace GameOverlay
             //this.Top = WoW.Window.Top;
             //this.Left = WoW.Window.Left;
 
-            this.Size = new Size(2560, 1440);
+            this.Size = new Size(SCREEN_WIDTH_PX, SCREEN_HEIGHT_PX);
             this.Top = 0;
             this.Left = 0;
 
@@ -98,7 +103,7 @@ namespace GameOverlay
             //e.Graphics.DrawRectangle(grnPen, overlay.DpsFrames[1].GetRect());
             //e.Graphics.DrawRectangle(grnPen, overlay.DpsFrames[2].GetRect());
 
-            e.Graphics.DrawRectangle(grnPen, (float)drawBox.left * 2560, (float)drawBox.top * 1440, (float)drawBox.width * 2560, (float)drawBox.height * 1440);
+            e.Graphics.DrawRectangle(grnPen, (float)drawBox.left * SCREEN_WIDTH_PX, (float)drawBox.top * SCREEN_HEIGHT_PX, (float)drawBox.width * SCREEN_WIDTH_PX, (float)drawBox.height * SCREEN_HEIGHT_PX);
         }
 
         private void ActionTimer_Tick(object sender, EventArgs e)
@@ -138,14 +143,17 @@ namespace GameOverlay
             // Move the mouse out of the way.
             Keyboard.MouseMoveTo(0, 0);
 
+            // Grab the result of the background worker.
             LureTag lureTag = e.Result as LureTag;
 
             if (lureTag == null)
             {
+                // If we didn't find the lure, nothing else to do.
                 Debug.WriteLine("lureTag is null");
             }
             else
             {
+                // Otherwise, draw a green rectangle over the lure bounding box.
                 drawBox = lureTag.boundingBox;
 
                 // Refresh the screen (triggers a repaint).
@@ -222,41 +230,65 @@ namespace GameOverlay
             // Get the BackgroundWorker that raised this event.
             BackgroundWorker worker = sender as BackgroundWorker;
 
-            // TODO: Algo needs to be implemented.
+            double x_left = (drawBox.left + 0.25 * drawBox.width) * SCREEN_WIDTH_PX;
+            double x_center = (drawBox.left + 0.5 * drawBox.width) * SCREEN_WIDTH_PX;
+            double x_right = (drawBox.left + 0.75 * drawBox.width) * SCREEN_WIDTH_PX;
 
-            double x = (drawBox.left + drawBox.width / 2) * 2560;
-            double y = (drawBox.top + drawBox.height / 2) * 1440;
-            Point pt = new Point((int)x, (int)y);
-            Color prev_c = new Color();
+            double y_top = (drawBox.top + 0.25 * drawBox.height) * SCREEN_HEIGHT_PX;
+            double y_center = (drawBox.top + 0.5 * drawBox.height) * SCREEN_HEIGHT_PX;
+            double y_bot = (drawBox.top + 0.75 * drawBox.height) * SCREEN_HEIGHT_PX;
 
+            Point[] pts = new Point[3]
+            {
+                new Point((int) x_left, (int) y_top),
+                //new Point((int) x_center, (int) y_top),
+                //new Point((int) x_right, (int) y_top),
+                //new Point((int) x_left, (int) y_center),
+                new Point((int) x_center, (int) y_center),
+                //new Point((int) x_right, (int) y_center),
+                //new Point((int) x_left, (int) y_bot),
+                //new Point((int) x_center, (int) y_bot),
+                new Point((int) x_right, (int) y_bot),
+            };
+
+            Color[] prev_c = new Color[3];
+            Color curr_c = new Color();
+            int delta = 0;
+
+            // 200 iterations, 100 ms per iteration, for a total of 20 seconds
+            // monitoring the screen (21 seconds fishing channel time).
             for (int i = 0; i <= 200; i++)
             {
-                //GetCursorPos(ref cursor);
+                Debug.Write("Iteration: " + i + ", Deltas: ");
+                sw.Restart();
 
-                //Console.WriteLine($"Cursor: {cursor.X} , {cursor.Y}");
-
-                Color c = GetColorAt(pt);
-
-                //Debug.WriteLine($"Color: {c.R}, {c.G}, {c.B}, ({i})");
-
-                if (i > 0)
+                for (int j = 0; j < 3; j++)
                 {
-                    int delta = Math.Abs(c.G - prev_c.G);
-                    Debug.WriteLine("Iteration: " + i + ", Delta: " + delta);
-                    if (delta >= 20)
+                    curr_c = GetColorAt(pts[j]);
+
+                    if (i > 0)
                     {
-                        e.Result = "detected";
-                        Thread.Sleep(1000);
-                        return;
+                        delta = Math.Abs(curr_c.G - prev_c[j].G);
+                        Debug.Write($"[{j}]: {delta} ");
+
+                        if (delta >= 50)
+                        {
+                            // When the algo triggers, this background worker simply returns which
+                            // lets the completed handler take care of the rest.
+                            e.Result = "detected";
+                            Thread.Sleep(1000);
+                            return;
+                        }
                     }
+
+                    prev_c[j] = curr_c;
                 }
 
-                prev_c = c;
+                Debug.Write($"(ms elapsed: {sw.ElapsedMilliseconds})\n");
                 Thread.Sleep(100);
             }
 
-            // When the algo triggers, this background worker simply returns which
-            // lets the completed handler take care of the rest.
+            // Return if no detection after ~20 seconds.
             e.Result = "expired";
         }
 
@@ -272,8 +304,11 @@ namespace GameOverlay
             // Allow delay for us to switch to game window.
             Thread.Sleep(n);
 
-            // Press "C" to cast line. Hold a few seconds for picture to settle.
-            Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.C, 2000);
+            // Press "C" to cast line.
+            Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.C);
+
+            // Wait a few seconds for lure to settle.
+            Thread.Sleep(2000);
 
             // Take picture of the screen
             string image_filename = DateTime.Now.ToString("yyyy_MM_ddTHH_mm_ss_fffffffZ");
