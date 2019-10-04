@@ -253,14 +253,20 @@ namespace GameOverlay
 
             Color[] prev_c = new Color[3];
             Color curr_c = new Color();
-            int delta = 0;
+            int delta, i = 0;
+            long ms = 0;
+
+            sw.Restart();
 
             // 200 iterations, 100 ms per iteration, for a total of 20 seconds
             // monitoring the screen (21 seconds fishing channel time).
-            for (int i = 0; i <= 200; i++)
+            while (true)
             {
-                Debug.Write("Iteration: " + i + ", Deltas: ");
-                sw.Restart();
+                ms = sw.ElapsedMilliseconds;
+                if (ms > 21000)
+                    break;
+
+                Debug.Write($"[{ms}] Deltas: ");
 
                 for (int j = 0; j < 3; j++)
                 {
@@ -276,6 +282,7 @@ namespace GameOverlay
                             // When the algo triggers, this background worker simply returns which
                             // lets the completed handler take care of the rest.
                             e.Result = "detected";
+                            Debug.Write("\n");
                             Thread.Sleep(1000);
                             return;
                         }
@@ -284,8 +291,9 @@ namespace GameOverlay
                     prev_c[j] = curr_c;
                 }
 
-                Debug.Write($"(ms elapsed: {sw.ElapsedMilliseconds})\n");
-                Thread.Sleep(100);
+                i++;
+                Debug.Write("\n");
+                //Thread.Sleep(100);
             }
 
             // Return if no detection after ~20 seconds.
