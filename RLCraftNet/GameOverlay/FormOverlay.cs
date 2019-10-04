@@ -41,7 +41,7 @@ namespace GameOverlay
         Pen bluPen = new Pen(Color.Blue);
         Pen grnPen = new Pen(Color.Green);
 
-        Overlay overlay;
+        //Overlay overlay;
 
         BoundingBox drawBox = new BoundingBox();
 
@@ -68,7 +68,7 @@ namespace GameOverlay
         private void FormOverlay_Load(object sender, EventArgs e)
         {
             // Game API we will interacting with.
-            WoW WoW = new WoW();
+            //WoW WoW = new WoW();
 
             // Setup the overlay to place over the game window.
             this.BackColor = Color.Wheat;
