@@ -92,7 +92,7 @@ namespace GameOverlay
 
             //overlay = new Overlay(WoW.Window.Top, WoW.Window.Left, (WoW.Window.Right - WoW.Window.Left), (WoW.Window.Bottom - WoW.Window.Top));
 
-            castsUntilBreak = rng.Next(100, 200);
+            castsUntilBreak = rng.Next(100, 500);
 
             backgroundWorker1.RunWorkerAsync(3000);
         }
@@ -216,7 +216,7 @@ namespace GameOverlay
                 for (int i = 0; i < breakTime; i++)
                 {
                     Thread.Sleep(60000);
-                    Debug.WriteLine($"Minutes passed while on break: {i}");
+                    Debug.WriteLine($"Minutes passed while on break: {i+1}");
                 }
                 //Thread.Sleep(breakTime * 60 * 1000);
 
