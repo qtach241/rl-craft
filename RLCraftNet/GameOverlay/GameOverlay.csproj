@@ -81,6 +81,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="CustomVision\Iteration1\model.pb" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -104,6 +105,14 @@
       <Project>{94193f6b-055d-46b9-88d8-810e3cdb1be3}</Project>
       <Name>GameInput</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CustomVision\Iteration2\Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CustomVision\Iteration1\labels.txt" />
+    <Content Include="CustomVision\Iteration1\object_detection.py" />
+    <Content Include="CustomVision\Iteration1\predict.py" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
