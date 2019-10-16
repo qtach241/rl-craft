@@ -295,7 +295,7 @@ namespace GameOverlay
             while (true)
             {
                 ms = sw.ElapsedMilliseconds;
-                if (ms > 21000)
+                if (ms > 20000)
                     break;
 
                 Debug.Write($"[{ms}] Deltas: ");
@@ -349,7 +349,7 @@ namespace GameOverlay
             Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.C);
 
             // Wait a few seconds for lure to settle.
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
 
             // Take picture of the screen
             string image_filename = DateTime.Now.ToString("yyyy_MM_ddTHH_mm_ss_fffffffZ");
