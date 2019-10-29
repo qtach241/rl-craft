@@ -213,6 +213,40 @@ namespace GameOverlay
                 int breakTime = rng.Next(1, 15); // 1 to 15 minutes.
                 Debug.WriteLine($"Taking a break for {breakTime} minutes...");
 
+                // Toggle the UI, take a screenshot, save it, then toggle back.
+                Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.F12);
+
+                Thread.Sleep(3000);
+
+                // Click to "refresh" whispers tab (makes them show up)
+                double general_tab_x_normalized = (100.0 / SCREEN_WIDTH_PX);
+                double general_tab_y_normalized = (960.0 / SCREEN_HEIGHT_PX);
+                double whisper_tab_x_normalized = (400.0 / SCREEN_WIDTH_PX);
+                double whisper_tab_y_normalized = (960.0 / SCREEN_HEIGHT_PX);
+
+                Keyboard.MouseLeftClick((int)((general_tab_x_normalized) * 65536.0), (int)((general_tab_y_normalized) * 65536.0));
+                Thread.Sleep(1000);
+                Keyboard.MouseLeftClick((int)((whisper_tab_x_normalized) * 65536.0), (int)((whisper_tab_y_normalized) * 65536.0));
+                Thread.Sleep(1000);
+
+                // Take picture of the screen
+                string image_filename = DateTime.Now.ToString("yyyy_MM_ddTHH_mm_ss_fffffffZ");
+
+                Rectangle bounds = Screen.GetBounds(Point.Empty);
+                using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
+                {
+                    using (Graphics g = Graphics.FromImage(bitmap))
+                    {
+                        g.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
+                    }
+                    bitmap.Save("break_" + image_filename + ".jpg", ImageFormat.Jpeg);
+                }
+
+                Thread.Sleep(3000);
+
+                // Toggle UI back off.
+                Keyboard.SendKeyAsInput(System.Windows.Forms.Keys.F12);
+
                 for (int i = 0; i < breakTime; i++)
                 {
                     Thread.Sleep(60000);
