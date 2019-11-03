@@ -194,9 +194,9 @@ namespace GameOverlay
             double x_normalized = (drawBox.left + drawBox.width / 2);
             double y_normalized = (drawBox.top + drawBox.height / 2);
 
-            Keyboard.SendKeyDownAsInput(System.Windows.Forms.Keys.ShiftKey);
+            //Keyboard.SendKeyDownAsInput(System.Windows.Forms.Keys.ShiftKey);
             Keyboard.MouseLeftClick((int)((x_normalized) * 65536.0), (int)((y_normalized) * 65536.0));
-            Keyboard.SendKeyUpAsInput(System.Windows.Forms.Keys.ShiftKey);
+            //Keyboard.SendKeyUpAsInput(System.Windows.Forms.Keys.ShiftKey);
 
             // Remove the bounding box drawn on screen.
             drawBox.top = 0;
