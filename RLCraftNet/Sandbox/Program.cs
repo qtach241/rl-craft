@@ -68,7 +68,20 @@ namespace Sandbox
             //}
 
             //Keyboard.MouseMoveTo((int)((1280.0 / 2560.0) * 65536.0), (int)((720.0 / 1440.0) * 65536.0));
-            Keyboard.MouseLeftClick((int)((1280.0 / 2560.0) * 65536.0), (int)((720.0 / 1440.0) * 65536.0));
+            //Keyboard.MouseLeftClick((int)((1280.0 / 2560.0) * 65536.0), (int)((720.0 / 1440.0) * 65536.0));
+
+            int SCREEN_WIDTH_PX = 2560;
+            int SCREEN_HEIGHT_PX = 1440;
+
+            double general_tab_x_normalized = (100.0 / SCREEN_WIDTH_PX);
+            double general_tab_y_normalized = (960.0 / SCREEN_HEIGHT_PX);
+            double whisper_tab_x_normalized = (400.0 / SCREEN_WIDTH_PX);
+            double whisper_tab_y_normalized = (960.0 / SCREEN_HEIGHT_PX);
+
+            Keyboard.MouseLeftClick((int)((general_tab_x_normalized) * 65536.0), (int)((general_tab_y_normalized) * 65536.0));
+            Thread.Sleep(1000);
+            Keyboard.MouseLeftClick((int)((whisper_tab_x_normalized) * 65536.0), (int)((whisper_tab_y_normalized) * 65536.0));
+            Thread.Sleep(1000);
 
             Console.WriteLine($"Blocked: {sw.ElapsedMilliseconds}");
 
