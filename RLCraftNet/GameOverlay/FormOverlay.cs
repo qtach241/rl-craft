@@ -146,7 +146,7 @@ namespace GameOverlay
             }
 
             // Move the mouse out of the way.
-            Keyboard.MouseMoveTo(0, 0);
+            //Keyboard.MouseMoveTo(0, 0);
 
             // Grab the result of the background worker.
             LureTag lureTag = e.Result as LureTag;
@@ -402,10 +402,14 @@ namespace GameOverlay
 
             // Send picture to python script
             // NOTE: This requires python along with a bunch of packages to be installed. Make sure to run:
-            // >>pip install tensorflow
+            // >>pip install tensorflow==1.15
             // >>pip install pillow
             // >>pip install numpy
             // >>pip install opencv-python
+
+            // NOTES FROM 2ND BRING-UP:
+            // - Tensor flow often times does not support the latest python, may have to install a previous version.
+            // - Add python to path when installing to make everything easier.
             result = exec_python("predict.py", image_filename + ".jpg");
 
             // Attempt to deserialize the output as Json.
