@@ -395,7 +395,7 @@ namespace GameOverlay
                 {
                     g.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
                 }
-                bitmap.Save(image_filename + ".jpg", ImageFormat.Jpeg);
+                bitmap.Save("images\\" + image_filename + ".jpg", ImageFormat.Jpeg);
             }
 
             string result;
@@ -410,7 +410,7 @@ namespace GameOverlay
             // NOTES FROM 2ND BRING-UP:
             // - Tensor flow often times does not support the latest python, may have to install a previous version.
             // - Add python to path when installing to make everything easier.
-            result = exec_python("predict.py", image_filename + ".jpg");
+            result = exec_python("predict.py", "images\\" + image_filename + ".jpg");
 
             // Attempt to deserialize the output as Json.
             List<LureTag> lureTags = new List<LureTag>();
